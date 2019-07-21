@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './../widgets/date_card.dart';
 import './../models/user.dart';
 
 class AvailableDatesPage extends StatefulWidget {
@@ -24,8 +25,13 @@ class _AvailableDatesPageState extends State <AvailableDatesPage> {
       ),
       body: Center(
         child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 10),
           children: <Widget> [
-            Text('Now signed in on this page!')
+            DateCard(
+              user: widget.user,
+              description: 'Some random description',
+              time: DateTime.now().add(Duration(days: 3))
+            )
           ],
         ),
       ),
