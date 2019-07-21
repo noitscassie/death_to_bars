@@ -21,7 +21,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign in screen')
+        title: Text('DEATH TO BARS'),
       ),
       body: Center(
         child: Column(
@@ -32,7 +32,7 @@ class SignInPage extends StatelessWidget {
               onPressed: () {
                 _signInAndRedirect(context);
               },
-              child: Text('Sign in with Google')
+              child: Text('Sign in to kill all bars')
             ),
           ],
         ),

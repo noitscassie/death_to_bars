@@ -25,9 +25,54 @@ class _AvailableDatesPageState extends State <AvailableDatesPage> {
         children: <Widget> [
           DateCard(
             user: widget.user,
-            description: 'Some random description',
+            description: 'Go bowling!',
             time: DateTime.now().add(Duration(days: 3))
-          )
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'See the Leonardo da Vinci exhibit',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Hang out in a park',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Go to a bar 💀💀💀💀',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'grab some dinner',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Go swimming in a lake',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Wander around battersea park',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Go to the cinema',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Build a tree house',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
+          DateCard(
+            user: widget.user,
+            description: 'Go on a bike ride in Richmond',
+            time: DateTime.now().add(Duration(days: 3))
+          ),
         ],
       ),
     );
