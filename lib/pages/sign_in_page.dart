@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'available_dates.dart';
+import './../models/user.dart';
+
 
 class SignInPage extends StatelessWidget {
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email'
-    ]
-  );
+  final User _user = User();
 
   void _signInAndRedirect(BuildContext context) async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
+    await _user.signIn();
+    if (_user.signedIn()) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AvailableDatesPage(user: _user))
+      );
     }
-    // todo: redirect
     return null;
   }
 
