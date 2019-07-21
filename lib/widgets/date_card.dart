@@ -16,9 +16,18 @@ class DateCard extends StatelessWidget {
           SizedBox(
             height: 100,
             width: 100,
-            child: Image.network(
-              'https://makers.tech/wp-content/uploads/2018/06/Screen-Shot-2018-06-27-at-11.38.04.png',
-              fit: BoxFit.fitHeight,
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      user.imageUrl(),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(
@@ -30,7 +39,7 @@ class DateCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Text> [
-                  Text('PJ wants to... go to the Leonardo Da Vinci Exhibition!'),
+                  Text("${this.user.firstName()} wants to... go to the Leonardo Da Vinci Exhibition!"),
                   Text(''),
                   Text('Next Tuesday evening'),
                 ],

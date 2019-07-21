@@ -9,21 +9,20 @@ class HomePage extends StatefulWidget {
 
   HomePage({Key key, this.user}) : super(key: key);
 
+  List<Widget> screens() {
+    return <Widget>[
+      AvailableDatesPage(user: user),
+      MyDatesPage(user: user),
+      ProfilePage(user: user),
+    ];
+  }
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-
-
-  List<Widget> _screens() {
-    return <Widget>[
-      AvailableDatesPage(user: widget.user),
-      MyDatesPage(user: widget.user),
-      ProfilePage(user: widget.user),
-    ];
-  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -37,8 +36,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home page'),
+        automaticallyImplyLeading: false,
       ),
-      body: _screens().elementAt(_selectedIndex),
+      body: widget.screens().elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

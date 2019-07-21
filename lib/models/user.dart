@@ -15,7 +15,11 @@ class User {
     }
   }
 
-  bool signedIn() {
-    return _googleSignIn.currentUser != null;
-  }
+  bool signedIn() => _googleUser() != null;
+
+  String firstName() => _googleUser().displayName.split(' ')[0];
+
+  String imageUrl() => _googleUser().photoUrl;
+
+  GoogleSignInAccount _googleUser() => _googleSignIn.currentUser;
 }
