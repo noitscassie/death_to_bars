@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'available_dates.dart';
+import 'home.dart';
 import './../models/user.dart';
 
 
@@ -11,7 +11,7 @@ class SignInPage extends StatelessWidget {
     if (_user.signedIn()) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => AvailableDatesPage(user: _user))
+        MaterialPageRoute(builder: (context) => HomePage(user: _user))
       );
     }
     return null;

@@ -19,21 +19,16 @@ class _AvailableDatesPageState extends State <AvailableDatesPage> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dates')
-      ),
-      body: Center(
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          children: <Widget> [
-            DateCard(
-              user: widget.user,
-              description: 'Some random description',
-              time: DateTime.now().add(Duration(days: 3))
-            )
-          ],
-        ),
+    return Center(
+      child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        children: <Widget> [
+          DateCard(
+            user: widget.user,
+            description: 'Some random description',
+            time: DateTime.now().add(Duration(days: 3))
+          )
+        ],
       ),
     );
   }
