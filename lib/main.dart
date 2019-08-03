@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/sign_in_page.dart';
+import 'ui/pages/onboarding/phone_number_sign_in.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignInPage(),
+      home: PhoneNumberSignInPage(),
     );
   }
 }
