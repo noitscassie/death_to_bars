@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './../widgets/date_card.dart';
-import './../models/user.dart';
+import './../../models/user.dart';
 
 class AvailableDatesPage extends StatefulWidget {
   final User user;

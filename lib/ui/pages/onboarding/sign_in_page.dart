@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import './../models/user.dart';
+import './../home.dart';
+import './../../../models/user.dart';
 
 
 class SignInPage extends StatelessWidget {

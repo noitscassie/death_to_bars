@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../models/user.dart';
+import './../../models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatelessWidget {

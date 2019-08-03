@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'available_dates.dart';
 import 'my_dates.dart';
 import 'profile.dart';
-import './../models/user.dart';
+import './../../models/user.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
