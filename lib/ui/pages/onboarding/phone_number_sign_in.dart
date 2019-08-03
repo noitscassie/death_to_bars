@@ -19,8 +19,6 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> {
   Future<void> _attemptPhoneAuthentication(BuildContext context) async {
     if (_buttonIsDisabled) {
       print('Button is disabled!');
-      print(_verificationId);
-      print(await _auth.currentUser());
       return null;
     }
 
@@ -42,13 +40,17 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> {
 
     final PhoneCodeSent codeSent =
       (String verificationId, [int forceResendingToken]) async {
-        _verificationId = verificationId;
+        setState(() {
+          _verificationId = verificationId;
+        });
         print("code sent to " + number);
       };
 
     final PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout =
       (String verificationId) {
-        _verificationId = verificationId;
+        setState(() {
+          _verificationId = verificationId;
+        });
         print("time out");
       };
 
@@ -69,10 +71,21 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> {
       return null;
     }
 
-    final AuthCredential credential = PhoneAuthProvider.getCredential(
-      verificationId: _verificationId,
-      smsCode: smsCodeInputController.text,
-    );
+    AuthCredential credential;
+
+    try {
+      credential = PhoneAuthProvider.getCredential(
+        verificationId: _verificationId,
+        smsCode: smsCodeInputController.text,
+      );
+    } catch (e) {
+      print('===================================');
+      print(e);
+      print(e.message);
+      print(e.code);
+      print(e.details);
+      print('===================================');
+    };
 
     await _auth.signInWithCredential(credential);
 
@@ -98,6 +111,11 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> {
 
   @override
 
+  initState() {
+    super.initState();
+    _maybeNavigateToProfileSetupPage(context);
+  }
+
   void dispose() {
     phoneNumberInputController.dispose();
     super.dispose();
@@ -118,6 +136,7 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> {
                 width: 200,
                 child: TextField(
                   controller: phoneNumberInputController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
               RaisedButton(
@@ -134,6 +153,7 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> {
                 width: 200,
                 child: TextField(
                   controller: smsCodeInputController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
               RaisedButton(
