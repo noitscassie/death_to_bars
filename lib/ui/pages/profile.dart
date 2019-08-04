@@ -7,16 +7,7 @@ class ProfilePage extends StatelessWidget {
 
   ProfilePage({Key key, this.user}) : super(key: key);
 
-  void _doFirebaseThing() async {
-    var snapshots = await Firestore.instance.collection('users').getDocuments();
-    print('==========================');
-    print(snapshots.documents[0].data);
-    print('==========================');
-    print(snapshots.documents[0].documentID);
-    print('==========================');
-    print(snapshots.documents[0].metadata);
-    print('==========================');
-  }
+  void _doFirebaseThing() async { }
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +20,16 @@ class ProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('just want to see some text on the page'),
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(user.imageUrl()),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   width: 120,
+                //   height: 120,
+                //   decoration: BoxDecoration(
+                //     shape: BoxShape.circle,
+                //     image: DecorationImage(
+                //       image: NetworkImage(user.imageUrl()),
+                //     ),
+                //   ),
+                // ),
                 RaisedButton(
                   onPressed: _doFirebaseThing,
                   child: Text('Do firebase thing'),

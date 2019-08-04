@@ -15,6 +15,9 @@ class _AvailableDatesPageState extends State <AvailableDatesPage> {
 
   @override
   void initState() {
+    print(widget.user.id);
+    print(widget.user.name);
+    print(widget.user.phoneNumber);
     super.initState();
   }
 
