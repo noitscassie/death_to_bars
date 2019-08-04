@@ -52,21 +52,10 @@ abstract class Authenticator {
   }
 
   void authenticateWithSms(BuildContext context, FirebaseAuth auth, String verificationId, String smsCode) async {
-    AuthCredential credential;
-
-    try {
-      credential = PhoneAuthProvider.getCredential(
-        verificationId: verificationId,
-        smsCode: smsCode,
-      );
-    } catch (e) {
-      print('===================================');
-      print(e);
-      print(e.message);
-      print(e.code);
-      print(e.details);
-      print('===================================');
-    };
+    AuthCredential credential = PhoneAuthProvider.getCredential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
 
     await auth.signInWithCredential(credential);
 
