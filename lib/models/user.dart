@@ -1,13 +1,14 @@
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
+  String id;
   String phoneNumber;
   String name;
 
-  User(this.phoneNumber, this.name);
+  User(this.id, this.phoneNumber, this.name);
 
   User.fromMap(Map<String, dynamic> map) {
+    this.id = map['id'];
     this.phoneNumber = map['phoneNumber'];
     this.name = map['name'];
   }
@@ -24,6 +25,10 @@ class User {
 
       return User.fromMap(snapshot.data);
     } else if (snapshot.documents.length == 1) {
+      DocumentSnapshot document = snapshot.documents[0];
+      Map<String, dynamic> data = document.data;
+      data['id'] = document.documentID;
+
       return User.fromMap(snapshot.documents[0].data);
     } else {
       // raise an error here - there should not be more than one user document with the same phone number in the db
@@ -31,25 +36,7 @@ class User {
     return null;
   }
 
-  GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email'
-    ]
-  );
-
-  Future<void> signIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
+  Future<void> update(Map<String, dynamic> attrs) async {
+    Firestore.instance.collection('users').document(this.id).updateData(attrs);
   }
-
-  bool signedIn() => _googleUser() != null;
-
-  String firstName() => _googleUser().displayName.split(' ')[0];
-
-  String imageUrl() => _googleUser().photoUrl;
-
-  GoogleSignInAccount _googleUser() => _googleSignIn.currentUser;
 }
