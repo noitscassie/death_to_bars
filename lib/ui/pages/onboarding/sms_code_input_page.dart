@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import './../../widgets/forms/simple_text_form.dart';
+import './../../widgets/forms/simple_number_input_form.dart';
 import './../../../utils/authenticator.dart';
 
 class SmsCodeInputPage extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SmsCodeInputPageState extends State<SmsCodeInputPage> with Authenticator 
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pinkAccent,
-      body: SimpleTextForm(
+      body: SimpleNumberInputForm(
         onPressed: () {
           _signInWithSms(context);
         },

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SimpleTextForm extends StatefulWidget {
+class SimpleNumberInputForm extends StatefulWidget {
   final Function onPressed;
   final TextEditingController controller;
   final String buttonText;
 
-  SimpleTextForm({
+  SimpleNumberInputForm({
     Key key,
     this.onPressed,
     this.controller,
@@ -13,11 +13,11 @@ class SimpleTextForm extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SimpleTextFormState createState() => _SimpleTextFormState();
+  _SimpleNumberInputFormState createState() => _SimpleNumberInputFormState();
 }
 
 
-class _SimpleTextFormState extends State<SimpleTextForm> {
+class _SimpleNumberInputFormState extends State<SimpleNumberInputForm> {
 
   Widget build(BuildContext context) {
     return Column(

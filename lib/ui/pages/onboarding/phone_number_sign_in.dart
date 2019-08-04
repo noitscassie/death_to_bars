@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './profile_setup_page.dart';
-import './../../widgets/forms/simple_text_form.dart';
+import './../../widgets/forms/simple_number_input_form.dart';
 import './../../../utils/authenticator.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -59,7 +59,7 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pinkAccent,
-      body: SimpleTextForm(
+      body: SimpleNumberInputForm(
         onPressed: () {
           _sendCodeOrSignIn(context);
         },
