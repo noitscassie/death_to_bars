@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import './profile_setup_page.dart';
 import './../../widgets/forms/simple_number_input_form.dart';
 import './../../../utils/authenticator.dart';

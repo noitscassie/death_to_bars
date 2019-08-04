@@ -11,7 +11,7 @@ abstract class Authenticator {
       (AuthCredential authCredential) async {
         print('Received phone auth credential: $authCredential');
 
-        auth.signInWithCredential(authCredential);
+        await auth.signInWithCredential(authCredential);
         FirebaseUser firebaseUser = await auth.currentUser();
         Widget page = ProfileSetupPage(firebaseUser: firebaseUser);
 

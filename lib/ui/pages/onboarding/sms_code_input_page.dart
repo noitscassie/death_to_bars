@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import './../../widgets/forms/simple_number_input_form.dart';
 import './../../../utils/authenticator.dart';
 
@@ -8,7 +9,9 @@ class SmsCodeInputPage extends StatefulWidget {
   final String verificationId;
 
   SmsCodeInputPage({Key key, this.auth, this.verificationId}) : super(key: key);
+
   @override
+
   _SmsCodeInputPageState createState() => _SmsCodeInputPageState();
 }
 
