@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'ui/pages/onboarding/phone_number_sign_in.dart';
 
 void main() => runApp(MyApp());
