@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import './../widgets/date_card.dart';
 import './../../models/user.dart';
 
@@ -12,12 +13,8 @@ class AvailableDatesPage extends StatefulWidget {
 }
 
 class _AvailableDatesPageState extends State <AvailableDatesPage> {
-
   @override
   void initState() {
-    print(widget.user.id);
-    print(widget.user.name);
-    print(widget.user.phoneNumber);
     super.initState();
   }
 
