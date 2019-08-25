@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './../home.dart';
 import './../../../models/user.dart';
 import './../../../utils/navigation_helper.dart';
 
@@ -25,7 +24,7 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> with NavigationHelp
         'bio': bioInputController.text,
       }
     );
-    navigateTo(context, HomePage(user: widget.user));
+    navigateHomeAndClearHistory(context, widget.user);
   }
 
   @override

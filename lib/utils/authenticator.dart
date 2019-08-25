@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import './../ui/pages/onboarding/sms_code_input_page.dart';
 import './../ui/pages/onboarding/profile_setup_page.dart';
+import './../ui/pages/home.dart';
 import './../models/user.dart';
 
 mixin Authenticator {
@@ -17,7 +18,9 @@ mixin Authenticator {
         FirebaseUser firebaseUser = await auth.currentUser();
         User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
 
-        _navigateTo(context, ProfileSetupPage(user: user));
+        Widget page = user.name != null ? HomePage(user: user) : ProfileSetupPage(user: user);
+
+        _navigateTo(context, page);
        };
 
     final PhoneVerificationFailed verificationFailed =
@@ -71,9 +74,9 @@ mixin Authenticator {
   }
 
   void _navigateTo(BuildContext context, Widget page) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => page)
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => page),
+      (Route<dynamic> route) => false
     );
   }
 }
