@@ -23,40 +23,40 @@ class DateCard extends StatelessWidget {
         splashColor: Colors.pink,
         child: Row(
           children: <Widget> [
-            // SizedBox(
-            //   height: 100,
-            //   width: 100,
-            //   child: Padding(
-            //     padding: EdgeInsets.all(5),
-            //     child: Container(
-            //       decoration: BoxDecoration(
-            //         shape: BoxShape.circle,
-            //         image: DecorationImage(
-            //           image: NetworkImage(
-            //             user.imageUrl(),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: EdgeInsets.only(left: 5),
-            //   child: SizedBox(
-            //     height: 100,
-            //     width: 200,
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: <Text> [
-            //         Text("${this.user.firstName()} wants to..."),
-            //         Text(this.description),
-            //         Text(''),
-            //         Text("In ${someDays()} days"),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            SizedBox(
+              height: 100,
+              width: 100,
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://www.some.ox.ac.uk/wp-content/uploads/2015/09/Peter.jpg',
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: SizedBox(
+                height: 100,
+                width: 200,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Text> [
+                    Text("${this.user.name} wants to..."),
+                    Text(this.description),
+                    Text(''),
+                    Text("In ${someDays()} days"),
+                  ],
+                ),
+              ),
+            ),
             IconButton(
               icon: Icon(Icons.check_circle_outline),
               onPressed: null,
