@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import './profile_setup_page.dart';
-import './../home.dart';
+import './../splash_screen.dart';
 import './../../widgets/forms/simple_number_input_form.dart';
 import './../../../models/user.dart';
 
@@ -19,6 +19,8 @@ class PhoneNumberSignInPage extends StatefulWidget {
 class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Authenticator, NavigationHelper {
   final phoneNumberInputController = TextEditingController();
   bool _buttonIsDisabled = false;
+  bool loading = true;
+  User user;
 
   Future<void> _sendCodeOrSignIn(BuildContext context) async {
     if (_buttonIsDisabled) {
@@ -33,14 +35,21 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
 
   void _handlePossibleRedirect(BuildContext context) async {
     FirebaseUser firebaseUser = await _auth.currentUser();
+
     if (firebaseUser == null || firebaseUser.phoneNumber == null) {
+      setState(() {
+        loading = false;
+      });
       return;
     }
 
     User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
-    Widget page = user.name != null ? HomePage(user: user) : ProfileSetupPage(user: user);
 
-    navigateTo(context, page);
+    if (user.name != null) {
+      return navigateHomeAndClearHistory(context, user);
+    }
+
+    navigateTo(context, ProfileSetupPage(user: user));
   }
 
 
@@ -63,6 +72,10 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
   }
 
   Widget build(BuildContext context) {
+    if (loading == true) {
+      return SplashScreen();
+    }
+
     return Scaffold(
       backgroundColor: Colors.pinkAccent,
       body: SimpleNumberInputForm(
