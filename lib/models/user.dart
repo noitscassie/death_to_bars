@@ -4,13 +4,15 @@ class User {
   String id;
   String phoneNumber;
   String name;
+  String bio;
 
-  User(this.id, this.phoneNumber, this.name);
+  User(this.id, this.phoneNumber, this.name, this.bio);
 
   User.fromMap(Map<String, dynamic> map) {
     this.id = map['id'];
     this.phoneNumber = map['phoneNumber'];
     this.name = map['name'];
+    this.bio = map['bio'];
   }
 
   static Future<User> findOrCreateFromPhoneNumber(String phoneNumber) async {
@@ -37,6 +39,16 @@ class User {
   }
 
   Future<void> update(Map<String, dynamic> attrs) async {
+    this.id = attrs['id'] ?? this.id;
+    this.name = attrs['name'] ?? this.name;
+    this.phoneNumber = attrs['phoneNumber'] ?? this.phoneNumber;
+    this.bio = attrs['bio'] ?? this.bio;
+
     Firestore.instance.collection('users').document(this.id).updateData(attrs);
+  }
+
+  static Future<User> find(String id) async {
+    DocumentSnapshot ds = await Firestore.instance.collection('users').document(id).get();
+    return User.fromMap(ds.data);
   }
 }
