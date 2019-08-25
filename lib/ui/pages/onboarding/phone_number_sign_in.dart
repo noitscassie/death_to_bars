@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import './profile_setup_page.dart';
+import './../home.dart';
 import './../../widgets/forms/simple_number_input_form.dart';
+import './../../../models/user.dart';
+
 import './../../../utils/authenticator.dart';
+import './../../../utils/navigation_helper.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -12,14 +16,13 @@ class PhoneNumberSignInPage extends StatefulWidget {
   _PhoneNumberSignInPageState createState() => _PhoneNumberSignInPageState();
 }
 
-class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Authenticator {
+class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Authenticator, NavigationHelper {
   final phoneNumberInputController = TextEditingController();
   bool _buttonIsDisabled = false;
 
   Future<void> _sendCodeOrSignIn(BuildContext context) async {
     if (_buttonIsDisabled) {
-      print('Button is disabled!');
-      return null;
+      return;
     }
 
     final String number = '+' + phoneNumberInputController.text;
@@ -28,16 +31,18 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
     _disableButton();
   }
 
-  void _maybeNavigateToProfileSetupPage(BuildContext context) async {
+  void _handlePossibleRedirect(BuildContext context) async {
     FirebaseUser firebaseUser = await _auth.currentUser();
-
-    if (firebaseUser != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ProfileSetupPage(firebaseUser: firebaseUser))
-      );
+    if (firebaseUser == null || firebaseUser.phoneNumber == null) {
+      return;
     }
+
+    User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
+    Widget page = user.name != null ? HomePage(user: user) : ProfileSetupPage(user: user);
+
+    navigateTo(context, page);
   }
+
 
   void _disableButton() {
     setState(() {
@@ -49,7 +54,7 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
 
   initState() {
     super.initState();
-    _maybeNavigateToProfileSetupPage(context);
+    _handlePossibleRedirect(context);
   }
 
   void dispose() {

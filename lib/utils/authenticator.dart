@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import './../ui/pages/onboarding/sms_code_input_page.dart';
 import './../ui/pages/onboarding/profile_setup_page.dart';
+import './../models/user.dart';
 
-abstract class Authenticator {
+mixin Authenticator {
 
   Future<void> attemptPhoneAuthentication(BuildContext context, FirebaseAuth auth, String number) async {
 
@@ -13,9 +15,9 @@ abstract class Authenticator {
 
         await auth.signInWithCredential(authCredential);
         FirebaseUser firebaseUser = await auth.currentUser();
-        Widget page = ProfileSetupPage(firebaseUser: firebaseUser);
+        User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
 
-        _navigateTo(context, page);
+        _navigateTo(context, ProfileSetupPage(user: user));
        };
 
     final PhoneVerificationFailed verificationFailed =
@@ -62,10 +64,9 @@ abstract class Authenticator {
     FirebaseUser firebaseUser = await auth.currentUser();
 
     if (firebaseUser != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ProfileSetupPage(firebaseUser: firebaseUser))
-      );
+      User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
+
+      _navigateTo(context, ProfileSetupPage(user: user));
     }
   }
 
