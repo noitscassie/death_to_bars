@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -63,7 +65,9 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
 
   initState() {
     super.initState();
-    _handlePossibleRedirect(context);
+    Timer(Duration(milliseconds: 500), () {
+      _handlePossibleRedirect(context);
+    });
   }
 
   void dispose() {

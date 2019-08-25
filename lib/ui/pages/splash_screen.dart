@@ -9,7 +9,21 @@ class SplashScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Center(
-            child: Icon(Icons.favorite),
+            child: Icon(
+              Icons.favorite,
+              size: 150,
+              color: Colors.white,
+            ),
+          ),
+          Center(
+            child: Text(
+              'ditch the bars',
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Parisienne',
+                fontSize: 50,
+              ),
+            )
           )
         ],
       )
