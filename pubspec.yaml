@@ -29,6 +29,7 @@ dependencies:
   firebase_core: ^0.4.0
   firebase_auth: ^0.14.0
   cloud_firestore: ^0.12.7
+  page_transition: ^1.1.4
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,11 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: Parisienne
+      fonts:
+        - asset: fonts/Parisienne-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
