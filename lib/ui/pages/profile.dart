@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+
 import './../../models/user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatelessWidget {
   final User user;
@@ -20,16 +20,20 @@ class ProfilePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('just want to see some text on the page'),
-                // Container(
-                //   width: 120,
-                //   height: 120,
-                //   decoration: BoxDecoration(
-                //     shape: BoxShape.circle,
-                //     image: DecorationImage(
-                //       image: NetworkImage(user.imageUrl()),
-                //     ),
-                //   ),
-                // ),
+                Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage('https://www.some.ox.ac.uk/wp-content/uploads/2015/09/Peter.jpg'),
+                    ),
+                  ),
+                ),
+                Text('Name:'),
+                Text(user.name),
+                Text('Bio:'),
+                Text(user.bio),
                 RaisedButton(
                   onPressed: _doFirebaseThing,
                   child: Text('Do firebase thing'),
