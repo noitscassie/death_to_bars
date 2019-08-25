@@ -65,7 +65,7 @@ class _PhoneNumberSignInPageState extends State<PhoneNumberSignInPage> with Auth
 
   initState() {
     super.initState();
-    Timer(Duration(milliseconds: 500), () {
+    Timer(Duration(milliseconds: 700), () {
       _handlePossibleRedirect(context);
     });
   }

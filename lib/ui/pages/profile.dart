@@ -19,7 +19,6 @@ class ProfilePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('just want to see some text on the page'),
                 Container(
                   width: 120,
                   height: 120,
