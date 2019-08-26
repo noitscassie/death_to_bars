@@ -31,7 +31,7 @@ class DateCard extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://www.some.ox.ac.uk/wp-content/uploads/2015/09/Peter.jpg',
+                        user.profileImageUrl,
                       ),
                     ),
                   ),
