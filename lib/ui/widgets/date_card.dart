@@ -17,9 +17,7 @@ class DateCard extends StatelessWidget {
   build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: () {
-          print('Card tapped.');
-        },
+        onTap: (){},
         splashColor: Colors.pink,
         child: Row(
           children: <Widget> [
