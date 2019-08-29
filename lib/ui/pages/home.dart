@@ -3,6 +3,7 @@ import 'available_dates.dart';
 import 'my_dates.dart';
 import 'profile.dart';
 import './../../models/user.dart';
+import './../../models/date.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -30,6 +31,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> _doTheThing() async {
+    await Date.create({
+      'proposerId': widget.user.id,
+      'description': 'Try the mountain bike track in Brockwell park'
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +46,10 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
       ),
       body: widget.screens().elementAt(_selectedIndex),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _doTheThing,
+        child: Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
