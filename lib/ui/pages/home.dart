@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'available_dates.dart';
 import 'my_dates.dart';
 import 'profile.dart';
+import 'propose_date.dart';
 import './../../models/user.dart';
-import './../../models/date.dart';
+import './../../utils/navigation_helper.dart';
 
 class HomePage extends StatefulWidget {
   final User user;
@@ -22,7 +23,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with NavigationHelper {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -31,11 +32,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _doTheThing() async {
-    await Date.create({
-      'proposerId': widget.user.id,
-      'description': 'Try the mountain bike track in Brockwell park'
-    });
+  void _navigateToProposeDate(BuildContext context) {
+    navigateTo(context, ProposeDatePage(user: widget.user));
   }
 
   @override
@@ -47,7 +45,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: widget.screens().elementAt(_selectedIndex),
       floatingActionButton: FloatingActionButton(
-        onPressed: _doTheThing,
+        onPressed: () {
+          _navigateToProposeDate(context);
+        },
         child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
