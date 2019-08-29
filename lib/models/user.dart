@@ -16,11 +16,7 @@ class User {
   String profileImageUrl = defaultImageUrl;
 
   User(this.id, this.phoneNumber, this.name, this.bio, this.profileImageUrl);
-
-  static const String defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/deathtobars.appspot.com/o/userImages%2Fblank-profile-picture-973460_960_720.png?alt=media&token=064b0150-38e7-4755-8dac-516cfda4a9bf';
-
-  static const String defaultImageName = 'blank-profile-picture-973460_960_720.png';
-
+  
   User.fromMap(Map<String, dynamic> map) {
     this.id = map['id'];
     this.phoneNumber = map['phoneNumber'];
@@ -28,6 +24,10 @@ class User {
     this.bio = map['bio'];
     this.profileImageUrl = map['profileImageUrl'] ?? profileImageUrl;
   }
+
+  static const String defaultImageUrl = 'https://firebasestorage.googleapis.com/v0/b/deathtobars.appspot.com/o/userImages%2Fblank-profile-picture-973460_960_720.png?alt=media&token=064b0150-38e7-4755-8dac-516cfda4a9bf';
+
+  static const String defaultImageName = 'blank-profile-picture-973460_960_720.png';
 
   static Future<User> findOrCreateFromPhoneNumber(String phoneNumber) async {
     QuerySnapshot snapshot = await firestore.collection('users').where('phoneNumber', isEqualTo: phoneNumber).getDocuments();
