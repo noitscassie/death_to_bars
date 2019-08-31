@@ -16,7 +16,7 @@ class User {
   String profileImageUrl = defaultImageUrl;
 
   User(this.id, this.phoneNumber, this.name, this.bio, this.profileImageUrl);
-  
+
   User.fromMap(Map<String, dynamic> map) {
     this.id = map['id'];
     this.phoneNumber = map['phoneNumber'];
@@ -33,14 +33,10 @@ class User {
     QuerySnapshot snapshot = await firestore.collection('users').where('phoneNumber', isEqualTo: phoneNumber).getDocuments();
 
     if (snapshot.documents.isEmpty) {
-      DocumentReference document = await firestore.collection('users').add({
+      return User.create({
         'phoneNumber': phoneNumber,
         'profileImageUrl': defaultImageUrl,
       });
-
-      DocumentSnapshot snapshot = await document.get();
-
-      return User.fromMap(snapshot.data);
     } else if (snapshot.documents.length == 1) {
       DocumentSnapshot document = snapshot.documents[0];
       Map<String, dynamic> data = document.data;
@@ -51,6 +47,14 @@ class User {
       // raise an error here - there should not be more than one user document with the same phone number in the db
     }
     return null;
+  }
+
+  static Future<User> create(Map<String, dynamic> map) async {
+    DocumentReference document = await firestore.collection('users').add(map);
+
+    DocumentSnapshot snapshot = await document.get();
+
+    return User.fromMap(snapshot.data);
   }
 
   static Future<User> find(String id) async {
