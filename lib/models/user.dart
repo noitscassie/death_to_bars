@@ -114,4 +114,14 @@ class User {
   Stream<DocumentSnapshot> stream() {
     return firestore.document('/users/${this.id}').snapshots();
   }
+
+  bool get completedSignUp => _completedSignUp(); 
+
+  bool _completedSignUp() {
+    return id != null &&
+      name != null &&
+      phoneNumber != null &&
+      bio != null &&
+      profileImageUrl != null;
+  }
 }
