@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import './../../widgets/forms/simple_number_input_form.dart';
 import './../../../utils/authenticator.dart';
 
 class SmsCodeInputPage extends StatefulWidget {
-  final FirebaseAuth auth;
   final String verificationId;
 
-  SmsCodeInputPage({Key key, this.auth, this.verificationId}) : super(key: key);
+  SmsCodeInputPage({Key key, this.verificationId}) : super(key: key);
 
   @override
 
@@ -19,7 +17,7 @@ class _SmsCodeInputPageState extends State<SmsCodeInputPage> with Authenticator 
   final smsCodeInputController = TextEditingController();
 
   void _signInWithSms(BuildContext context) async {
-    authenticateWithSms(context, widget.auth, widget.verificationId, smsCodeInputController.text);
+    authenticateWithSms(context, widget.verificationId, smsCodeInputController.text);
   }
 
   @override

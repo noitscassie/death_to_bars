@@ -7,15 +7,16 @@ import './../ui/pages/home.dart';
 import './../models/user.dart';
 
 mixin Authenticator {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> attemptPhoneAuthentication(BuildContext context, FirebaseAuth auth, String number) async {
+  Future<void> attemptPhoneAuthentication(BuildContext context, String number) async {
 
     final PhoneVerificationCompleted verificationCompleted =
       (AuthCredential authCredential) async {
         print('Received phone auth credential: $authCredential');
 
-        await auth.signInWithCredential(authCredential);
-        FirebaseUser firebaseUser = await auth.currentUser();
+        await _auth.signInWithCredential(authCredential);
+        FirebaseUser firebaseUser = await _auth.currentUser();
         User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
 
         Widget page = user.name != null ? HomePage(user: user) : ProfileSetupPage(user: user);
@@ -34,7 +35,7 @@ mixin Authenticator {
         print("code sent to " + number);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SmsCodeInputPage(auth: auth, verificationId: verificationId))
+          MaterialPageRoute(builder: (context) => SmsCodeInputPage(verificationId: verificationId))
         );
       };
 
@@ -46,7 +47,7 @@ mixin Authenticator {
         print('================================================================');
       };
 
-    auth.verifyPhoneNumber(
+    _auth.verifyPhoneNumber(
       phoneNumber: number,
       timeout: const Duration(seconds: 30),
       codeSent: codeSent,
@@ -56,15 +57,15 @@ mixin Authenticator {
     );
   }
 
-  void authenticateWithSms(BuildContext context, FirebaseAuth auth, String verificationId, String smsCode) async {
+  void authenticateWithSms(BuildContext context, String verificationId, String smsCode) async {
     AuthCredential credential = PhoneAuthProvider.getCredential(
       verificationId: verificationId,
       smsCode: smsCode,
     );
 
-    await auth.signInWithCredential(credential);
+    await _auth.signInWithCredential(credential);
 
-    FirebaseUser firebaseUser = await auth.currentUser();
+    FirebaseUser firebaseUser = await _auth.currentUser();
 
     if (firebaseUser != null) {
       User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
