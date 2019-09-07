@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './../../models/user.dart';
-import './../../models/date.dart';
+//import './../../models/date.dart';
 
 class ProposeDatePage extends StatefulWidget {
   final User user;
