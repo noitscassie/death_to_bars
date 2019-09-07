@@ -4,9 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
+import './../clients/users_client.dart';
+
 final Firestore firestore = Firestore.instance;
 final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 final StorageReference userImagesStorageReference = firebaseStorage.ref().child('userImages');
+final UsersClient _client = UsersClient();
 
 class User {
   String id;
@@ -16,6 +19,14 @@ class User {
   String profileImageUrl = defaultImageUrl;
 
   User(this.id, this.phoneNumber, this.name, this.bio, this.profileImageUrl);
+
+  User.fromDocumentSnapshot(DocumentSnapshot snapshot) {
+    this.id = snapshot.documentID;
+    this.phoneNumber = snapshot.data['phoneNumber'];
+    this.name = snapshot.data['name'];
+    this.bio = snapshot.data['bio'];
+    this.profileImageUrl = snapshot.data['profileImageUrl'] ?? profileImageUrl;
+  }
 
   User.fromMap(Map<String, dynamic> map) {
     this.id = map['id'];
@@ -30,7 +41,14 @@ class User {
   static const String defaultImageName = 'blank-profile-picture-973460_960_720.png';
 
   static Future<User> findOrCreateFromPhoneNumber(String phoneNumber) async {
-    QuerySnapshot snapshot = await firestore.collection('users').where('phoneNumber', isEqualTo: phoneNumber).getDocuments();
+    Future<QuerySnapshot> futureSnapshot = _client.fetchFromAttribute(
+      'phoneNumber',
+      phoneNumber
+    ).then((Query query) {
+      return query.getDocuments();
+    });
+
+    QuerySnapshot snapshot = await futureSnapshot;
 
     if (snapshot.documents.isEmpty) {
       return User.create({
