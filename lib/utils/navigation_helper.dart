@@ -10,10 +10,14 @@ mixin NavigationHelper {
     );
   }
 
-  void navigateHomeAndClearHistory(BuildContext context, User user) {
+  void navigateToAndClearHistory(BuildContext context, Widget page) {
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => HomePage(user: user)),
+      MaterialPageRoute(builder: (context) => page),
       (Route<dynamic> route) => false
     );
+  }
+
+  void navigateHomeAndClearHistory(BuildContext context, User user) {
+    navigateToAndClearHistory(context, HomePage(user: user));
   }
 }
