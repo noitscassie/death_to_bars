@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:meta/meta.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -7,22 +8,28 @@ import './../models/user.dart';
 import './../clients/users_client.dart';
 
 class UserBloc implements Bloc {
+  final DocumentReference reference;
+
+  UserBloc({@required this.reference}) : assert(reference != null);
+
   final _controller = StreamController<User>();
   final _client = UsersClient();
 
   Stream<User> get userStream => _controller.stream;
 
-  void find(String id) async {
-    final DocumentSnapshot snapshot = await _client.fetch(id);
-    _controller.sink.add(User.fromDocumentSnapshot(snapshot));
+  void find() async {
+    final DocumentSnapshot snapshot = await _client.findSnapshot(reference);
+    _addUserFromSnapshot(snapshot);
   }
 
-  void getFromPhoneNumber() async {
-    DocumentSnapshot snapshot = await _client.findFromPhoneNumber();
+  void findStream() {
+    _client.findSnapshotStream(reference).listen((DocumentSnapshot snapshot) {
+      _addUserFromSnapshot(snapshot);
+    });
+  }
 
-    if (snapshot.exists) {
-      find(snapshot.documentID);
-    }
+  void _addUserFromSnapshot(DocumentSnapshot snapshot) {
+    _controller.sink.add(User.fromDocumentSnapshot(snapshot));
   }
 
   @override
