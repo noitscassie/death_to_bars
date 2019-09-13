@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,9 +18,9 @@ mixin Authenticator {
 
         await _auth.signInWithCredential(authCredential);
         FirebaseUser firebaseUser = await _auth.currentUser();
-        User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
+        User user = await _userFromPhoneNumber(firebaseUser.phoneNumber);
 
-        Widget page = user.name != null ? HomePage(user: user) : ProfileSetupPage(user: user);
+        Widget page = user.completedSignUp ? HomePage() : ProfileSetupPage(user: user);
 
         _navigateTo(context, page);
        };
@@ -68,7 +69,7 @@ mixin Authenticator {
     FirebaseUser firebaseUser = await _auth.currentUser();
 
     if (firebaseUser != null) {
-      User user = await User.findOrCreateFromPhoneNumber(firebaseUser.phoneNumber);
+      User user = await _userFromPhoneNumber(firebaseUser.phoneNumber);
 
       _navigateTo(context, ProfileSetupPage(user: user));
     }
@@ -79,5 +80,12 @@ mixin Authenticator {
       MaterialPageRoute(builder: (context) => page),
       (Route<dynamic> route) => false
     );
+  }
+
+  Future<User> _userFromPhoneNumber(String phoneNumber) async {
+    DocumentReference reference = await User.findFromPhoneNumber(phoneNumber);
+    DocumentSnapshot snapshot = await reference.get();
+
+    return User.fromDocumentSnapshot(snapshot);
   }
 }

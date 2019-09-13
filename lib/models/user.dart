@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:uuid/uuid.dart';
 
 import './../clients/users_client.dart';
 
@@ -12,6 +8,7 @@ class User {
   String name;
   String bio;
   String profileImageUrl = defaultImageUrl;
+  DocumentReference documentReference;
   static final UsersClient _client = UsersClient();
 
   User(this.id, this.phoneNumber, this.name, this.bio, this.profileImageUrl);
@@ -22,6 +19,7 @@ class User {
     this.name = snapshot.data['name'];
     this.bio = snapshot.data['bio'];
     this.profileImageUrl = snapshot.data['profileImageUrl'] ?? profileImageUrl;
+    this.documentReference = snapshot.reference;
   }
 
   static Future<DocumentReference> create(Map<String, dynamic> attrs) =>
@@ -31,7 +29,6 @@ class User {
       String phoneNumber) async {
     List<DocumentSnapshot> documents =
         await _client.fetchFromAttribute('phoneNumber', phoneNumber);
-    ;
 
     if (documents.isEmpty) {
       return null;

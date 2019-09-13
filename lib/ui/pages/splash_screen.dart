@@ -1,6 +1,38 @@
+import 'package:death_to_bars/ui/pages/onboarding/onboarding_container.dart';
+import 'package:death_to_bars/ui/pages/onboarding/sign_in_page.dart';
+import 'package:death_to_bars/utils/navigation_helper.dart';
 import 'package:flutter/material.dart';
 
-class SplashScreen extends StatelessWidget {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import './../../models/user.dart';
+
+import './../../utils/navigation_helper.dart';
+
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> with NavigationHelper {
+  void _fetchUserAndRedirect() async {
+    String phoneNumber;
+    DocumentReference reference = await User.findFromPhoneNumber(phoneNumber);
+
+    if (reference == null) {
+      navigateTo(context, SignInPage());
+    }
+
+    navigateTo(context, OnboardingContainer(reference: reference));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserAndRedirect();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pinkAccent,

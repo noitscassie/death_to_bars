@@ -18,6 +18,6 @@ mixin NavigationHelper {
   }
 
   void navigateHomeAndClearHistory(BuildContext context, User user) {
-    navigateToAndClearHistory(context, HomePage(user: user));
+    navigateToAndClearHistory(context, HomePage());
   }
 }
