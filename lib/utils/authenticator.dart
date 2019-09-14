@@ -20,7 +20,7 @@ mixin Authenticator {
         FirebaseUser firebaseUser = await _auth.currentUser();
         User user = await _userFromPhoneNumber(firebaseUser.phoneNumber);
 
-        Widget page = user.completedSignUp ? HomePage() : ProfileSetupPage(user: user);
+        Widget page = user.completedSignUp ? HomePage() : ProfileSetupPage();
 
         _navigateTo(context, page);
        };
@@ -71,7 +71,9 @@ mixin Authenticator {
     if (firebaseUser != null) {
       User user = await _userFromPhoneNumber(firebaseUser.phoneNumber);
 
-      _navigateTo(context, ProfileSetupPage(user: user));
+      Widget page = user.completedSignUp ? HomePage() : ProfileSetupPage();
+
+      _navigateTo(context, page);
     }
   }
 

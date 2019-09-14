@@ -11,9 +11,9 @@ import './../../utils/navigation_helper.dart';
 class HomePage extends StatefulWidget {
   List<Widget> screens(User user) {
     return <Widget>[
-      AvailableDatesPage(user: user),
-      MyDatesPage(user: user),
-      ProfilePage(user: user),
+      AvailableDatesPage(),
+      MyDatesPage(),
+      ProfilePage(),
     ];
   }
 

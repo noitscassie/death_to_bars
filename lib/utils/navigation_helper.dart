@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './../models/user.dart';
 import './../ui/pages/home.dart';
 
 mixin NavigationHelper {
@@ -17,7 +16,7 @@ mixin NavigationHelper {
     );
   }
 
-  void navigateHomeAndClearHistory(BuildContext context, User user) {
+  void navigateHomeAndClearHistory(BuildContext context) {
     navigateToAndClearHistory(context, HomePage());
   }
 }

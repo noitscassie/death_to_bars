@@ -3,23 +3,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './../clients/users_client.dart';
 
 class User {
-  String id;
-  String phoneNumber;
-  String name;
-  String bio;
-  String profileImageUrl = defaultImageUrl;
-  DocumentReference documentReference;
+  String _id;
+  String _phoneNumber;
+  String _name;
+  String _bio;
+  String _profileImageUrl = defaultImageUrl;
+  DocumentReference _documentReference;
   static final UsersClient _client = UsersClient();
 
-  User(this.id, this.phoneNumber, this.name, this.bio, this.profileImageUrl);
-
   User.fromDocumentSnapshot(DocumentSnapshot snapshot) {
-    this.id = snapshot.documentID;
-    this.phoneNumber = snapshot.data['phoneNumber'];
-    this.name = snapshot.data['name'];
-    this.bio = snapshot.data['bio'];
-    this.profileImageUrl = snapshot.data['profileImageUrl'] ?? profileImageUrl;
-    this.documentReference = snapshot.reference;
+    this._id = snapshot.documentID;
+    this._phoneNumber = snapshot.data['phoneNumber'];
+    this._name = snapshot.data['name'];
+    this._bio = snapshot.data['bio'];
+    this._profileImageUrl = snapshot.data['profileImageUrl'] ?? _profileImageUrl;
+    this._documentReference = snapshot.reference;
   }
 
   static Future<DocumentReference> create(Map<String, dynamic> attrs) =>
@@ -56,20 +54,17 @@ class User {
         name != null &&
         phoneNumber != null &&
         bio != null &&
-        profileImageUrl != null;
+        image != null;
   }
 
+  String get id => this._id;
+  String get phoneNumber => this._phoneNumber;
+  String get name => this._name;
+  String get bio => this._bio;
+  String get image => this._profileImageUrl;
+  DocumentReference get reference => this._documentReference;
+
 //  todo: extract everything below here userBloc
-//  Future<void> update(Map<String, dynamic> attrs) async {
-//    this.id = attrs['id'] ?? this.id;
-//    this.name = attrs['name'] ?? this.name;
-//    this.phoneNumber = attrs['phoneNumber'] ?? this.phoneNumber;
-//    this.bio = attrs['bio'] ?? this.bio;
-//    this.profileImageUrl = attrs['profileImageUrl'] ?? this.profileImageUrl;
-//
-//    firestore.collection('users').document(this.id).updateData(attrs);
-//  }
-//
 //  Future<void> updateProfilePicture(File file) async {
 //    // TODO: refactor / tidy up this method
 //    StorageReference userImageRef =

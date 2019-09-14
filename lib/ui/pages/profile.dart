@@ -1,40 +1,39 @@
 import 'dart:io';
 
+import 'package:death_to_bars/bloc/bloc_provider.dart';
+import 'package:death_to_bars/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
 import './../../models/user.dart';
 
 class ProfilePage extends StatefulWidget {
-  final User user;
-
-  ProfilePage({Key key, this.user}) : super(key: key);
-
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   File file;
-  User user;
+  UserBloc _bloc;
 
   void _uploadPicture() async {
     File file = await FilePicker.getFile(type: FileType.IMAGE);
-    user.updateProfilePicture(file);
+    _bloc.setProfilePicture(file);
   }
 
   @override
   initState() {
-    user = widget.user;
     super.initState();
+    _bloc = BlocProvider.of<UserBloc>(context);
   }
 
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: user.stream(),
+    return StreamBuilder<User>(
+      stream: _bloc.userStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          Map<String, dynamic> data = snapshot.data.data;
+          User user = snapshot.data;
+
           return Row(
             children: <Widget>[
               Expanded(
@@ -49,14 +48,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                            image: NetworkImage(data['profileImageUrl']),
+                            image: NetworkImage(user.image),
                           ),
                         ),
                       ),
                       Text('Name:'),
-                      Text(data['name']),
+                      Text(user.name),
                       Text('Bio:'),
-                      Text(data['bio']),
+                      Text(user.bio),
                       RaisedButton(
                         onPressed: _uploadPicture,
                         child: Text('Upload profile picture'),

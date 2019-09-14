@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:meta/meta.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,8 +29,13 @@ class UserBloc implements Bloc {
     });
   }
 
-  void _addUserFromSnapshot(DocumentSnapshot snapshot) {
-    _controller.sink.add(User.fromDocumentSnapshot(snapshot));
+  void _addUserFromSnapshot(DocumentSnapshot snapshot) =>
+      _controller.sink.add(User.fromDocumentSnapshot(snapshot));
+
+  void updateUser(Map<String, dynamic> attrs) => reference.setData(attrs);
+
+  void setProfilePicture(File file) {
+
   }
 
   @override

@@ -1,13 +1,10 @@
+import 'package:death_to_bars/bloc/bloc_provider.dart';
+import 'package:death_to_bars/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 
-import './../../../models/user.dart';
 import './../../../utils/navigation_helper.dart';
 
 class ProfileSetupPage extends StatefulWidget {
-  final User user;
-
-  ProfileSetupPage({Key key, this.user}) : super(key: key);
-
   @override
   _ProfileSetupPageState createState() => _ProfileSetupPageState();
 }
@@ -16,21 +13,21 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> with NavigationHelp
   final nameInputController = TextEditingController();
   final bioInputController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  UserBloc _bloc;
 
-  void _updateUserAndNavigateHome(BuildContext context) async {
-    await widget.user.update(
-      {
-        'name': nameInputController.text,
-        'bio': bioInputController.text,
-      }
-    );
-    navigateHomeAndClearHistory(context, widget.user);
+  void _updateUserAndNavigateHome(BuildContext context) {
+    _bloc.updateUser({
+      'name': nameInputController.text,
+      'bio': bioInputController.text,
+    });
+    navigateHomeAndClearHistory(context);
   }
 
   @override
 
   initState() {
     super.initState();
+    _bloc = BlocProvider.of<UserBloc>(context);
   }
 
   void dispose() {
