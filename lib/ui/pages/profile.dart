@@ -27,9 +27,14 @@ class _ProfilePageState extends State<ProfilePage> {
     _bloc = BlocProvider.of<UserBloc>(context);
   }
 
+  void dispose() {
+    super.dispose();
+    _bloc.dispose();
+  }
+
   Widget build(BuildContext context) {
     return StreamBuilder<User>(
-      stream: _bloc.userStream,
+      stream: _bloc.userStream(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           User user = snapshot.data;

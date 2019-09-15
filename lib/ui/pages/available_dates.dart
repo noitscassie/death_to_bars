@@ -20,9 +20,14 @@ class _AvailableDatesPageState extends State <AvailableDatesPage> {
     _userBloc = BlocProvider.of<UserBloc>(context);
   }
 
+  void dispose() {
+    super.dispose();
+    _userBloc.dispose();
+  }
+
   Widget build(BuildContext context) {
     return StreamBuilder<User>(
-      stream: _userBloc.userStream,
+      stream: _userBloc.userStream(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           User user = snapshot.data;

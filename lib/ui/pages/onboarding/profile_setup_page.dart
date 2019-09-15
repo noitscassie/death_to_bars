@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
 import 'package:death_to_bars/bloc/bloc_provider.dart';
 import 'package:death_to_bars/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,10 @@ import 'package:flutter/material.dart';
 import './../../../utils/navigation_helper.dart';
 
 class ProfileSetupPage extends StatefulWidget {
+  final DocumentReference reference;
+
+  ProfileSetupPage({Key key, @required this.reference}) : assert(reference != null), super(key: key);
+
   @override
   _ProfileSetupPageState createState() => _ProfileSetupPageState();
 }
@@ -20,7 +26,7 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> with NavigationHelp
       'name': nameInputController.text,
       'bio': bioInputController.text,
     });
-    navigateHomeAndClearHistory(context);
+    navigateHomeAndClearHistory(context, widget.reference);
   }
 
   @override

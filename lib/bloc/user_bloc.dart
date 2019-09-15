@@ -13,10 +13,13 @@ class UserBloc implements Bloc {
 
   UserBloc({@required this.reference}) : assert(reference != null);
 
-  final _controller = StreamController<User>();
+  final _controller = StreamController<User>.broadcast();
   final _client = UsersClient();
 
-  Stream<User> get userStream => _controller.stream;
+  Stream<User> userStream() {
+    findStream();
+    return _controller.stream;
+  }
 
   void find() async {
     final DocumentSnapshot snapshot = await _client.findSnapshot(reference);

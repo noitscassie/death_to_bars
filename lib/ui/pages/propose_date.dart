@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import './../../models/user.dart';
 //import './../../models/date.dart';
 
 class ProposeDatePage extends StatefulWidget {
-  final User user;
-
-  ProposeDatePage({Key key, this.user}) : super(key: key);
-
   // Widget build(BuildContext context) {
   //   return Text('here is some text');
   // }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import './../ui/pages/home.dart';
@@ -16,7 +17,7 @@ mixin NavigationHelper {
     );
   }
 
-  void navigateHomeAndClearHistory(BuildContext context) {
-    navigateToAndClearHistory(context, HomePage());
+  void navigateHomeAndClearHistory(BuildContext context, DocumentReference reference) {
+    navigateToAndClearHistory(context, HomePage(reference: reference,));
   }
 }

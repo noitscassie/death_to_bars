@@ -1,4 +1,3 @@
-import 'package:death_to_bars/ui/pages/onboarding/onboarding_container.dart';
 import 'package:death_to_bars/ui/pages/onboarding/sign_in_page.dart';
 import 'package:death_to_bars/utils/navigation_helper.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import './../../models/user.dart';
 
 import './../../utils/navigation_helper.dart';
+import 'onboarding/profile_setup_page.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -24,7 +24,13 @@ class _SplashScreenState extends State<SplashScreen> with NavigationHelper {
       navigateTo(context, SignInPage());
     }
 
-    navigateTo(context, OnboardingContainer(reference: reference));
+    User _user = User.fromDocumentSnapshot(await reference.get());
+
+    if (_user.completedSignUp) {
+      navigateHomeAndClearHistory(context, reference);
+    }
+
+    navigateToAndClearHistory(context, ProfileSetupPage(reference: reference));
   }
 
   @override
